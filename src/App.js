@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import {useState } from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router,
+Route,
+Routes} from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Login from './components/Login';
+
+function App(props) {
+  const [darkmode,setDarkmode] = useState('light');
+
+  const toggle = ()=>{
+    if(darkmode === 'light'){
+      setDarkmode('dark')
+    }else{
+      setDarkmode('light')
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Navbar mode={darkmode} toggleMode={toggle}/>
+        <Routes>
+        <Route path='/' Component={Home}/>
+        </Routes>
+        <Routes>
+        <Route path='/about' Component={About}/>
+        </Routes>
+        <Routes>
+        <Route path='/login' Component={Login}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
